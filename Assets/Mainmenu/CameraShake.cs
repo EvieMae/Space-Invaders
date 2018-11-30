@@ -6,45 +6,35 @@ public class CameraShake : MonoBehaviour {
 
 
 	private Transform transform;
+	private float SDur = 0f; //Shake Duration
+	private float sMag = 0.7f //Shake Distance;
 
-	private float shakeDuration = 0f;
-
-
-	private float shakeMagnitude = 0.7f;
-
-	private float dampingSpeed = 1.0f;
-
-	Vector3 initialPosition;
-
+	Vector3 startPOS;
+	void OnEnable()
+	{
+		startPOS = new Vector3(0,0,-10);
+	}
 	void Start () {
 		if (transform == null)
 		{
 			transform = GetComponent(typeof(Transform)) as Transform;
 		}
 	}
-	void OnEnable()
-	{
-		initialPosition = new Vector3(0,0,-10);
-	}
-	// Update is called once per frame
 	void Update()
 	{
-		if (shakeDuration > 0)
+		if (SDur > 0)
 		{
-			transform.localPosition = initialPosition + Random.insideUnitSphere * shakeMagnitude;
-
-			shakeDuration -= Time.deltaTime * dampingSpeed;
+			transform.localPosition = startPOS + Random.insideUnitSphere * sMag;
+			SDur = SDur - Time.deltaTime;
 		}
 		else
 		{
-			shakeDuration = 0f;
-			transform.localPosition = initialPosition;
+			SDur = 0f;
+			transform.localPosition = startPOS;
 		}
 	}
 
 	public void TriggerShake(float shake = 1f) {
-		shakeDuration = shake;
+		SDur = shake;
 	}
-
-
 }
