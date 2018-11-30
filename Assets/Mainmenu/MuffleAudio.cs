@@ -10,7 +10,6 @@ public class MuffleAudio : MonoBehaviour {
 		gm=GameObject.Find("Game Manager").GetComponent<GM>();
 	}
 	void Update() {
-		
 			this.GetComponent<AudioSource> ().pitch = gm.speed;
 
 		this.GetComponent<AudioLowPassFilter> ().cutoffFrequency = (Time.timeScale == 0 ? 300 : 5000);
